@@ -1,0 +1,214 @@
+{
+  "version": 1,
+  "createdAt": "2026-11-23T00:00:00.000Z",
+  "users": [
+    {
+      "id": "user-admin",
+      "username": "admin",
+      "displayName": "Quản trị viên",
+      "role": "admin",
+      "passwordHash": "5ba5595fc4cf7935ae8cac1b8c91de8d:4ab9f982487ede68b01a9d7c9d887558f9bc93c2c84a95b88ba75708d6cd0f42feaed1a9710c264197ca8a55c3cd201d55d38d192b3a9e04bc7491874185a679",
+      "active": true,
+      "createdAt": "2026-11-23T00:00:00.000Z"
+    }
+  ],
+  "rooms": [
+    {
+      "id": "takeaway",
+      "name": "Mang về",
+      "type": "takeaway",
+      "capacity": 0,
+      "active": true,
+      "status": "available"
+    },
+    {
+      "id": "box-1",
+      "name": "Box 1",
+      "type": "box",
+      "capacity": 6,
+      "active": true,
+      "status": "available"
+    },
+    {
+      "id": "box-2",
+      "name": "Box 2",
+      "type": "box",
+      "capacity": 8,
+      "active": true,
+      "status": "available"
+    },
+    {
+      "id": "box-3",
+      "name": "Box 3",
+      "type": "box",
+      "capacity": 10,
+      "active": true,
+      "status": "available"
+    },
+    {
+      "id": "box-4",
+      "name": "Box 4",
+      "type": "box",
+      "capacity": 12,
+      "active": true,
+      "status": "available"
+    },
+    {
+      "id": "box-5",
+      "name": "Box 5",
+      "type": "box",
+      "capacity": 15,
+      "active": true,
+      "status": "available"
+    },
+    {
+      "id": "box-6",
+      "name": "Box 6",
+      "type": "box",
+      "capacity": 8,
+      "active": true,
+      "status": "available"
+    }
+  ],
+  "products": [
+    {
+      "id": "p-hour-small-am",
+      "name": "GIỜ HÁT SÁNG BOX NHỎ (9h-13h)",
+      "category": "Giờ hát",
+      "price": 90000,
+      "unit": "gói",
+      "description": "Áp dụng cho Box nhỏ · 9:00–13:00",
+      "active": true
+    },
+    {
+      "id": "p-hour-large-pm",
+      "name": "GIỜ HÁT CHIỀU BOX LỚN (13h-17h)",
+      "category": "Giờ hát",
+      "price": 150000,
+      "unit": "gói",
+      "description": "Áp dụng cho Box lớn · 13:00–17:00",
+      "active": true
+    },
+    {
+      "id": "p-hour-night",
+      "name": "GIỜ HÁT TỐI (17h-00h)",
+      "category": "Giờ hát",
+      "price": 180000,
+      "unit": "gói",
+      "description": "Khung giờ buổi tối",
+      "active": true
+    },
+    {
+      "id": "p-weekend",
+      "name": "Thứ 7, Chủ Nhật + Lễ, Tết",
+      "category": "Giờ hát",
+      "price": 30000,
+      "unit": "phụ thu",
+      "description": "Phụ thu cuối tuần và ngày lễ",
+      "active": true
+    },
+    {
+      "id": "p-hour-extra",
+      "name": "Giờ hát phát sinh",
+      "category": "Giờ hát",
+      "price": 60000,
+      "unit": "giờ",
+      "description": "Tính theo giờ sử dụng",
+      "active": true
+    },
+    {
+      "id": "p-snack-1",
+      "name": "Khoai tây chiên",
+      "category": "Đồ ăn",
+      "price": 45000,
+      "unit": "đĩa",
+      "description": "Khoai tây chiên giòn",
+      "active": true
+    },
+    {
+      "id": "p-snack-2",
+      "name": "Khô gà lá chanh",
+      "category": "Đồ ăn",
+      "price": 65000,
+      "unit": "đĩa",
+      "description": "Đồ ăn vặt",
+      "active": true
+    },
+    {
+      "id": "p-snack-3",
+      "name": "Xúc xích nướng",
+      "category": "Đồ ăn",
+      "price": 35000,
+      "unit": "cái",
+      "description": "Xúc xích nướng nóng",
+      "active": true
+    },
+    {
+      "id": "p-drink-1",
+      "name": "Coca Cola",
+      "category": "Nước uống",
+      "price": 25000,
+      "unit": "lon",
+      "description": "330ml",
+      "active": true
+    },
+    {
+      "id": "p-drink-2",
+      "name": "Pepsi",
+      "category": "Nước uống",
+      "price": 25000,
+      "unit": "lon",
+      "description": "330ml",
+      "active": true
+    },
+    {
+      "id": "p-drink-3",
+      "name": "Trà đào cam sả",
+      "category": "Nước uống",
+      "price": 39000,
+      "unit": "ly",
+      "description": "Pha chế tại quầy",
+      "active": true
+    },
+    {
+      "id": "p-drink-4",
+      "name": "Nước suối",
+      "category": "Nước uống",
+      "price": 15000,
+      "unit": "chai",
+      "description": "500ml",
+      "active": true
+    },
+    {
+      "id": "p-combo-1",
+      "name": "Combo Party 1",
+      "category": "Combo",
+      "price": 199000,
+      "unit": "combo",
+      "description": "2 nước + 1 đồ ăn vặt",
+      "active": true
+    },
+    {
+      "id": "p-combo-2",
+      "name": "Combo Party 2",
+      "category": "Combo",
+      "price": 299000,
+      "unit": "combo",
+      "description": "4 nước + 2 đồ ăn vặt",
+      "active": true
+    }
+  ],
+  "activeOrders": {},
+  "receipts": [],
+  "kitchenTickets": [],
+  "cashRecords": [],
+  "returnRecords": [],
+  "shiftLogs": [],
+  "settings": {
+    "storeName": "Musicbox",
+    "branchName": "Musicbox · Cơ sở chính",
+    "address": "Vui lòng cập nhật địa chỉ cửa hàng",
+    "phone": "",
+    "currency": "VND"
+  }
+}

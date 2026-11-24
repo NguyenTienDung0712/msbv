@@ -1,0 +1,17 @@
+{
+  "name": "musicbox-pos",
+  "version": "1.0.0",
+  "description": "Ứng dụng POS quản lý cửa hàng Musicbox với đồng bộ thời gian thực",
+  "main": "server.js",
+  "scripts": {
+    "start": "node scripts/rider-start.js",
+    "dev": "node scripts/rider-start.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "socket.io": "^4.8.1"
+  }
+}

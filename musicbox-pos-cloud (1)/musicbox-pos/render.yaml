@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: musicbox-pos
+    runtime: node
+    plan: starter
+    region: singapore
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: APP_HOSTED
+        value: "true"
+      - key: HOST
+        value: 0.0.0.0
+      - key: DATA_DIR
+        value: /var/data
+      - key: INITIAL_ADMIN_PASSWORD
+        sync: false
+    disk:
+      name: musicbox-data
+      mountPath: /var/data
+      sizeGB: 1

@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#db2777" />
+  <title>Musicbox POS · Quản lý cửa hàng</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div id="loginView" class="login-page">
+    <div class="login-art">
+      <div class="login-orb orb-one"></div><div class="login-orb orb-two"></div>
+      <div class="login-brand-mark">♫</div>
+      <div class="login-art-copy">
+        <span class="eyebrow">SOUND · SERVICE · EXPERIENCE</span>
+        <h1>Âm nhạc hay.<br><em>Vận hành mượt.</em></h1>
+        <p>Quản lý phòng hát, thực đơn và thanh toán trên cùng một nền tảng.</p>
+      </div>
+      <div class="login-art-foot"><span>✦</span> Musicbox · Point of Sale</div>
+    </div>
+    <div class="login-side">
+      <div class="login-card">
+        <div class="login-mobile-brand"><span class="brand-icon">♫</span><b>musicbox</b></div>
+        <div class="login-heading"><span class="eyebrow pink">WELCOME BACK</span><h2>Đăng nhập</h2><p>Chào mừng bạn quay lại Musicbox.</p></div>
+        <form id="loginForm" class="login-form">
+          <label for="loginUsername">Tài khoản</label>
+          <div class="field-with-icon"><span>♙</span><input id="loginUsername" name="username" autocomplete="username" placeholder="Nhập tên đăng nhập" required value="admin" /></div>
+          <label for="loginPassword">Mật khẩu</label>
+          <div class="field-with-icon"><span>♧</span><input id="loginPassword" name="password" type="password" autocomplete="current-password" placeholder="Nhập mật khẩu" required /><button type="button" id="togglePassword" class="reveal-pass" aria-label="Hiện mật khẩu">◉</button></div>
+          <div id="loginError" class="form-error" aria-live="polite"></div>
+          <button class="primary-btn login-submit" type="submit">Đăng nhập hệ thống <span>→</span></button>
+        </form>
+        <div class="demo-account hidden" id="demoAccount"><div class="demo-icon">✦</div><div><b>Tài khoản dùng thử</b><p>admin <span>·</span> 123456</p></div><button id="fillDemo" type="button">Dùng thử</button></div>
+        <p class="login-note" id="loginNote">Đăng nhập trên nhiều thiết bị cùng Wi-Fi để đồng bộ trực tiếp. Mở một trong các địa chỉ LAN bên dưới trên điện thoại hoặc máy khác.</p>
+        <div id="networkAccess" class="network-access" aria-live="polite">Đang tìm địa chỉ mạng nội bộ...</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="appView" class="app-shell hidden">
+    <header class="topbar">
+      <div class="brand-lockup"><div class="brand-icon">♫</div><div class="brand-name">musicbox<span>POS</span></div></div>
+      <div class="main-tabs" role="tablist">
+        <button class="main-tab active" data-view="rooms"><span>▦</span> Phòng / Box</button>
+        <button class="main-tab" data-view="menu"><span>▤</span> Thực đơn / Giờ hát</button>
+      </div>
+      <div class="top-search"><span>⌕</span><input id="globalSearch" placeholder="Tìm món, gói hát (F3)" autocomplete="off" /><kbd>F3</kbd></div>
+      <div class="top-actions">
+        <div class="sync-indicator" id="syncIndicator"><i></i><span>Đang kết nối</span></div>
+        <button class="icon-btn notification-btn" id="notificationBtn" title="Thông báo"><span>♧</span><b id="notificationCount" class="notification-count hidden">0</b></button>
+        <button class="icon-btn" id="refreshBtn" title="Làm mới dữ liệu">↻</button>
+        <button class="icon-btn" id="printBtn" title="In hóa đơn">▤</button>
+        <button class="admin-trigger" id="adminTrigger"><span class="admin-avatar">A</span><span class="admin-trigger-label"><b id="currentUserName">Quản trị viên</b><small>Quản trị viên⌄</small></span><span class="chevron">⌄</span></button>
+      </div>
+    </header>
+
+    <main id="workspace" class="workspace" data-mobile-tab="rooms">
+      <section class="catalog-panel">
+        <div class="catalog-toolbar">
+          <div><div class="section-kicker" id="catalogKicker">QUẢN LÝ KHÔNG GIAN</div><h1 id="catalogTitle">Phòng / Box</h1></div>
+          <div class="catalog-toolbar-right">
+            <div class="segmented-filter" id="roomFilters"><button class="selected" data-filter="all">Tất cả</button><button data-filter="in-use">Đang sử dụng</button><button data-filter="available">Còn trống</button></div>
+            <button class="soft-icon-btn" id="addOrderBtn" title="Thêm đơn mới">＋</button>
+          </div>
+        </div>
+        <div class="catalog-context" id="catalogContext"><span class="live-dot"></span><span id="roomSummary">0 phòng · 0 đang sử dụng</span><span class="context-spacer"></span><span class="small-hint">Chọn phòng để bắt đầu order</span></div>
+        <div class="category-strip hidden" id="categoryStrip"></div>
+        <div id="roomsGrid" class="rooms-grid"></div>
+        <div id="productsGrid" class="products-grid hidden"></div>
+        <div class="catalog-bottom"><label class="checkline"><input type="checkbox" id="autoMenuCheck" checked /><span class="custom-check"></span><span>Tự mở thực đơn khi chọn phòng</span></label><span class="catalog-bottom-note">Giá hiển thị đã bao gồm đơn vị tính</span></div>
+      </section>
+
+      <section class="order-panel">
+        <div class="order-tabs-wrap"><div class="order-tabs" id="orderTabs"></div><button class="add-tab-btn" id="addTabBtn" title="Thêm tab đơn">＋</button></div>
+        <div class="order-heading">
+          <div><div class="section-kicker">ĐƠN HÀNG HIỆN TẠI</div><h2 id="orderRoomTitle">Chưa chọn phòng</h2></div>
+          <span class="order-status" id="orderStatus"><i></i> Chưa mở đơn</span>
+        </div>
+        <div class="order-meta">
+          <div class="customer-field"><span>♙</span><input id="customerInput" placeholder="Tìm khách hàng (F4)" autocomplete="off" /><button id="addCustomerBtn" title="Thêm khách hàng">＋</button></div>
+          <div class="order-meta-line"><label>Nhân viên <select id="staffSelect"><option>Quản trị viên</option></select></label><label>Khách <select id="guestSelect"><option value="1">1 khách</option><option value="2" selected>2 khách</option><option value="3">3 khách</option><option value="4">4 khách</option><option value="5">5 khách</option><option value="6">6 khách</option><option value="8">8 khách</option><option value="10">10 khách</option></select></label></div>
+        </div>
+        <div class="order-list-head"><span>MÓN / DỊCH VỤ</span><span>SL</span><span>THÀNH TIỀN</span></div>
+        <div id="orderItems" class="order-items"></div>
+        <div class="order-note-area"><input id="orderNoteInput" placeholder="＋ Ghi chú cho bếp / pha chế..." /></div>
+        <div class="order-summary">
+          <div class="summary-line"><span>Tạm tính</span><b id="subtotalText">0 ₫</b></div>
+          <div class="summary-line discount-line"><span>Giảm giá</span><b>0 ₫</b></div>
+          <div class="summary-total"><span>Tổng thanh toán</span><strong id="totalText">0 ₫</strong></div>
+        </div>
+        <div class="order-actions"><button class="notify-btn" id="notifyBtn"><span>♧</span> Thông báo <kbd>F10</kbd></button><button class="pay-btn" id="payBtn"><span>Thanh toán</span><kbd>F9</kbd><b id="payButtonTotal">0 ₫</b></button></div>
+        <div class="order-bottom-note"><span>⌁</span> Đơn hàng sẽ được đồng bộ tới tất cả thiết bị</div>
+      </section>
+    </main>
+
+    <nav class="mobile-nav" id="mobileNav">
+      <button class="mobile-nav-item active" data-mobile="rooms"><span>▦</span><small>Phòng / Box</small></button>
+      <button class="mobile-nav-item" data-mobile="menu"><span>▤</span><small>Thực đơn</small></button>
+      <button class="mobile-nav-item" data-mobile="orders"><span>🛒</span><small>Đơn hiện tại</small><b id="mobileCartCount" class="mobile-count hidden">0</b></button>
+    </nav>
+    <div class="mobile-paybar" id="mobilePaybar"><div><small>Tổng đơn hiện tại</small><b id="mobileTotal">0 ₫</b></div><button id="mobilePayBtn">Thanh toán nhanh <span>→</span></button></div>
+
+    <footer class="app-footer"><span><b id="footerStoreName">Musicbox</b> <i>·</i> <span id="footerBranch">Cơ sở chính</span></span><span class="footer-sync"><i></i><span id="footerSyncText">Đang kết nối máy chủ</span></span><span>Musicbox POS <b>v1.0.0</b></span></footer>
+  </div>
+
+  <div id="drawerBackdrop" class="drawer-backdrop hidden"></div>
+  <aside id="adminDrawer" class="admin-drawer" aria-hidden="true">
+    <div class="drawer-header"><div><span class="section-kicker">WORKSPACE</span><h2>Quản trị viên</h2></div><button class="close-btn" id="closeDrawer">×</button></div>
+    <div class="drawer-user"><div class="drawer-avatar" id="drawerAvatar">A</div><div><b id="drawerUserName">Quản trị viên</b><small id="drawerUserRole">Administrator</small></div><span class="online-pill"><i></i> Online</span></div>
+    <div class="drawer-layout"><nav class="drawer-nav" id="drawerNav">
+      <div class="drawer-nav-label">TỔNG QUAN</div>
+      <button data-admin="management" class="active"><span>⌘</span> Quản lý</button>
+      <button data-admin="kitchen"><span>♨</span> Bếp / Pha chế <b id="kitchenBadge" class="nav-badge hidden">0</b></button>
+      <button data-admin="secondary"><span>▣</span> Màn hình phụ</button>
+      <div class="drawer-nav-label">NGHIỆP VỤ</div>
+      <button data-admin="reports"><span>▥</span> Báo cáo cuối ngày</button>
+      <button data-admin="cash"><span>↗</span> Lập phiếu thu / chi</button>
+      <button data-admin="returns"><span>↩</span> Chọn đơn trả hàng</button>
+      <div class="drawer-nav-label">CẤU HÌNH</div>
+      <button data-admin="settings"><span>⚙</span> Cài đặt chung</button>
+      <button data-admin="prices"><span>◇</span> Thiết lập bảng giá</button>
+      <button data-admin="presets"><span>▤</span> Món có sẵn trong đơn</button>
+      <button data-admin="shift"><span>⇄</span> Đổi nguồn / Ca làm việc</button>
+      <div class="drawer-nav-bottom"><button id="logoutBtn"><span>↪</span> Đăng xuất</button></div>
+    </nav><div class="drawer-content" id="drawerContent"></div></div>
+  </aside>
+
+  <div id="modalBackdrop" class="modal-backdrop hidden"><div id="modalContent" class="modal-card" role="dialog" aria-modal="true"></div></div>
+  <div id="toastRegion" class="toast-region" aria-live="polite"></div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
